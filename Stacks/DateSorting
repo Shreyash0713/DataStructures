@@ -1,0 +1,77 @@
+Given a number of dates, sort them in such a way that the date that corresponds to the earliest day comes first and the date that corresponds to the latest day comes last
+
+
+#include <cmath>
+#include <cstring>
+#include <cstdio>
+#include <vector>
+#include <iostream>
+#include <algorithm>
+using namespace std;
+
+struct Date{
+    int day;
+    int mon;
+    int year;
+};
+void sort(struct Date a[],int n)
+{
+    int temp,temp1,temp2;
+    for(int i=0;i<n;i++)
+    {
+        for(int j=0;j<n-i-1;j++)
+        {
+            if(a[j].year>a[j+1].year)
+            {   
+                temp1=a[j].year;
+                a[j].year=a[j+1].year;
+                a[j+1].year=temp1;
+                temp=a[j].mon;
+                a[j].mon=a[j+1].mon;
+                a[j+1].mon=temp;
+                temp=a[j].day;
+                a[j].day=a[j+1].day;
+                a[j+1].day=temp;
+                
+            }
+            else if(a[j].year==a[j+1].year)
+            {
+                if(a[j].mon>a[j+1].mon)
+                 {
+                temp=a[j].mon;
+                a[j].mon=a[j+1].mon;
+                a[j+1].mon=temp;
+                temp=a[j].day;
+                a[j].day=a[j+1].day;
+                a[j+1].day=temp;
+                   }
+                else if(a[j].mon==a[j+1].mon)
+                {
+                    //cout<<"hello"<<endl;
+                    if(a[j].day>a[j+1].day){
+                temp=a[j].day;
+                a[j].day=a[j+1].day;
+                a[j+1].day=temp;
+                    }
+                }
+            }
+                
+        }
+    }
+}
+int main() {
+    int n,i;
+    struct Date a[10000];
+    cin>>n;
+    for(i=0;i<n;i++)
+    {
+        cin>>a[i].day>>a[i].mon>>a[i].year;
+    }
+    /* Enter your code here. Read input from STDIN. Print output to STDOUT */   
+    sort(a,n);
+    for(i=0;i<n;i++)
+    {
+        cout<<a[i].day<<" "<<a[i].mon<<" "<<a[i].year<<endl;
+    }
+    return 0;
+}
