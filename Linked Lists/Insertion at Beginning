@@ -1,0 +1,43 @@
+#include <stdio.h>
+#include <string.h>
+#include <math.h>
+#include <stdlib.h>
+
+struct Node
+{
+    int data;
+    struct Node* next;
+};
+
+struct Node* insert(struct Node* head,int val)
+{
+    struct Node* new=(struct Node*) malloc(sizeof(struct Node));
+    new->data=val;
+    new->next=head;
+    head=new;
+    return head;
+}
+void print(struct Node *head)
+{
+    struct Node* ptr=head;
+    while(ptr->next!=NULL){
+        printf("%d->",ptr->data);
+        ptr=ptr->next;
+        }
+    printf("%d",ptr->data);
+}
+int main() {
+
+    /* Enter your code here. Read input from STDIN. Print output to STDOUT */ 
+    struct Node* head=NULL;
+    int n,val;
+    scanf("%d",&n);
+    while(n-->0)
+    {
+        scanf("%d",&val);
+        //printf("%d\n",val);
+        head=insert(head,val);
+    }
+    print(head);
+    return 0;
+}
