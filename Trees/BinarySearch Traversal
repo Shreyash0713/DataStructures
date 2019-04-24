@@ -1,0 +1,80 @@
+#include <stdio.h>
+#include <string.h>
+#include <math.h>
+#include <stdlib.h>
+struct Tree
+{
+    int x;
+    struct Tree* L;
+    struct Tree* R;
+};
+typedef struct Tree Tree;
+Tree* newnode(int x)
+{
+    Tree* node=(struct Tree*)malloc(sizeof(struct Tree*));
+    node->x=x;
+    node->L=node->R=NULL;
+    return node;
+}
+Tree* insert(Tree* node, int val)
+{
+    if(node==NULL)
+        return newnode(val);
+    if(val<=node->x)
+        node->L=insert(node->L,val);
+    else
+        node->R=insert(node->R,val);
+    return node;
+}
+void inorder(Tree* node)
+{
+    if(node==NULL)
+        return;
+    inorder(node->L);
+    printf("%d ",node->x);
+    inorder(node->R);
+}
+void preorder(Tree* node)
+{
+    if(node==NULL)
+        return;
+    printf("%d ",node->x);
+    preorder(node->L);
+    preorder(node->R);
+}
+void postorder(Tree* node)
+{
+    if(node==NULL)
+        return;
+    postorder(node->L);
+    postorder(node->R);
+    printf("%d ",node->x);
+}
+/*int height(Tree* node)
+{
+    if(node==NULL)
+        return 0;
+    int lh=height(node->L);
+    int rh=height(node->R);
+    if(lh>rh)
+        return(lh+1);
+    else
+        return(rh+1);
+}*/
+int main() {
+  
+    int val,n;
+    Tree* Root=NULL;
+    scanf("%d",&n);
+    for(int i=0;i<n;i++)
+    {
+        scanf("%d",&val);
+        Root=insert(Root, val);
+    }
+    preorder(Root);
+    printf("\n");
+    inorder(Root);
+    printf("\n");
+    postorder(Root);
+    return 0;
+}
