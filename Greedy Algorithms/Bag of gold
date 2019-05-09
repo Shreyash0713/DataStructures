@@ -1,0 +1,47 @@
+#include <cmath>
+#include <cstdio>
+#include <vector>
+#include <iostream>
+#include<iomanip>
+#include <algorithm>
+using namespace std;
+vector< pair< double, pair<int,int > > > arr;
+    int n,size;
+void knapsack()
+{
+    int i=0;
+   long double profit=0;
+    while(size>0 && i!=n)
+    {
+        if(arr[i].second.first  <= size)
+        {
+            profit=profit+arr[i].second.second;
+            size-=arr[i].second.first;
+        }
+        else
+        {
+            profit=profit+(((double)size/(double)arr[i].second.first)*(arr[i].second.second));
+            size=0;
+        }
+        i++;
+    }
+    if(size>0){cout<<-1<<endl;return;}
+    cout<<fixed<<setprecision(12);
+    cout<<profit;
+}
+
+int main() {
+    /* Enter your code here. Read input from STDIN. Print output to STDOUT */
+    cin>>n>>size;
+    for(int i=0;i<n;i++)
+    {
+      long long int w,k;cin>>w>>k;
+        arr.push_back(make_pair(double(k)/double(w),make_pair(w,k)));
+    }
+    sort(arr.begin(),arr.end());
+    reverse(arr.begin(),arr.end());
+    //for(int i=0;i<n;i++)
+      //  cout<<arr[i].first<<" "<<arr[i].second.first<<" "<<arr[i].second.second<<endl;
+    knapsack();
+    return 0;
+}
